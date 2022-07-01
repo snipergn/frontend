@@ -1,3 +1,22 @@
-.login1 {
-  padding: 10px;
+#login1 {
+  padding-right: 30px;
+  color: gray;
+}
+
+#login1:hover {
+  color: black;
+}
+
+#button1:hover {
+  background-color: black;
+  color: white;
+}
+
+#items {
+  border-radius: 5px;
+  padding: 10px 10px 10px 10px;
+}
+
+#icon {
+  margin: 10px 10px 10px 10px;
 }
