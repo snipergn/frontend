@@ -1,22 +1,17 @@
-#login1 {
-  padding-right: 30px;
-  color: gray;
+.text-header {
+    padding-left: 15%;
+    padding-top: 10%;;
 }
 
-#login1:hover {
-  color: black;
+.lead {
+    padding-left: 15%;
 }
 
-#button1:hover {
-  background-color: black;
-  color: white;
-}
-
-#items {
-  border-radius: 5px;
-  padding: 10px 10px 10px 10px;
-}
-
-#icon {
-  margin: 10px 10px 10px 10px;
+.heros {
+    display: block;
+    margin: 0 auto;
+    padding-top: 2%;
+    padding-right: 8%;
+    float: right;
+    border: none;
 }
