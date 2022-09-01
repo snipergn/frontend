@@ -1,6 +1,7 @@
 import './App.css';
 import SignIn from './Components/Signin/signin.js'
 import Register from './Components/Register/register.js'
+import Navigation from './Components/Navigation/navigation.js'
 import React from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
@@ -19,11 +20,11 @@ class App extends React.Component {
   this.handleChangePassword  = this.handleChangePassword.bind(this);
   this.handleChangePhone  = this.handleChangePhone.bind(this);
   this.handleChangeName  = this.handleChangeName.bind(this);
-  this.handleChangeElements  = this.handleChangeElements.bind(this);
 }
 
   handleChangeEmail = (event) => {
     this.setState({
+      
       email: event.target.value,
     });
   }
@@ -45,13 +46,7 @@ handleChangePhone = (event) => {
       name: event.target.value,
     });
   }
-
-  handleChangeElements = () => {
-    this.preventDefault()
-    alert('it\'s work');   
-  };
- 
-
+  
   render() {
   return (
     <div className="App"> 
@@ -59,6 +54,7 @@ handleChangePhone = (event) => {
           <Routes>
             <Route exact path="/" element={<SignIn/>}/>
             <Route exact path="/register" element={<Register/>}/>
+            <Route exact path="/navigation" element={<Navigation/>}/>
         </Routes>
       </BrowserRouter>
     </div>

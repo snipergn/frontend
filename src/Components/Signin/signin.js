@@ -3,12 +3,21 @@ import React from 'react'
 import {useNavigate} from "react-router-dom";
 
 
-const SignIn = ({handleChangeEmail, handleChangePassword, handleChangeElements}) => { 
+const SignIn = ({event, handleChangeEmail, handleChangePassword}) => { 
 	const navigate = useNavigate();
+		handleChangeEmail({
+			[event.target.email]: event.target.value
+		});
+
+		handleChangePassword({
+			[event.target.password]: event.target.value
+		})
+
+
 	 return (
 	  	<>
 		<main class="pa6 black-80">
-		<div class="measure center" onSubmit={alert('it\'s work email')}>
+		<div class="measure center">
 	    	<fieldset id="sign_up" class="ba b--transparent ph2 mh0">
 	      	<legend class="f2 fw6 ph0 mh0">Sign In</legend>
   				<div class="mt3">
@@ -17,7 +26,7 @@ const SignIn = ({handleChangeEmail, handleChangePassword, handleChangeElements})
         				type="email" 
         				name="email-address"  
         				id="email-address"
-        				onChange={handleChangeEmail}
+        				onChange={this.handleChangeEmail}
         				/> 
 
       			</div>
@@ -27,12 +36,13 @@ const SignIn = ({handleChangeEmail, handleChangePassword, handleChangeElements})
         				type="password" 
         				name="password" 
         				id="current-password"
-        				onChange={handleChangePassword}
+        				onChange={this.handleChangePassword}
         				/>
       			</div>
     				</fieldset>
    					<div class="">
       					<input
+      					onClick={() => navigate('/navigation')}
       					class="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
       					type="submit" 
       					value="Sign in"/>

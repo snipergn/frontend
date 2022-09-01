@@ -1,12 +1,12 @@
 import React from 'react'
 import {useNavigate} from "react-router-dom";
 
-const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, handleChangeName, handleChangeElements}) => {
+const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, handleChangeName}) => {
 	const navigate = useNavigate();
 	 return (
 	  	<>
 		<main className="pa6 black-80">
-		<div className="measure center" onSumbit={handleChangeElements} >
+		<div className="measure center"  >
 	    	<fieldset id="sign_up" className="ba b--transparent ph2 mh0">
 	      	<legend className="f2 fw6 ph0 mh0">Register</legend>
   				<div className="mt3">
@@ -16,7 +16,6 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
         				name="email-address"  
         				id="email-address"
         				onChange={handleChangeEmail}
-
         				/> 
 
       			</div>
@@ -52,7 +51,8 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
 
     				</fieldset>
    					<div className="">
-      					<input 
+      					<input
+      					onClick={() => navigate('/navigation')} 
       					className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
       					type="submit" 
       					value="Register"/>
