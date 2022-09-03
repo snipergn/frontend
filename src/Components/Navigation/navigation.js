@@ -1,9 +1,7 @@
 import React from 'react'
 import './navigation.css'
-import {useNavigate} from "react-router-dom";
 
-const Navigation = () => {
-	const navigate = useNavigate();
+const Navigation = ({OnRouteChange} ) => {
 	 return (
 	  	<>
 		<nav class="db dt-l w-100 border-box pa3 ph5-l">
@@ -15,8 +13,8 @@ const Navigation = () => {
 			  <button class=" link dim dark-gray f6 f5-l dib dropbtn">Profile</button>
 			  <div class="dropdown-content">
 			    <p class="button underline tj" href="#"
-			    onClick={() => navigate('/')} 
-			    >Logout
+			    onClick={() => OnRouteChange('signin')}
+			    >	Logout
 			    </p>	    
 			  </div>
 			</div>

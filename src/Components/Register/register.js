@@ -1,8 +1,37 @@
 import React from 'react'
-import {useNavigate} from "react-router-dom";
 
-const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, handleChangeName}) => {
-	const navigate = useNavigate();
+class Register extends React.Component {
+	constructor() {
+		super()
+		this.state = {
+			email: '',
+			password: '',
+			name: '',
+			phone: ''
+		}
+			this.OnEmailChange = this.OnEmailChange.bind(this);
+		  this.OnPasswordChange = this.OnPasswordChange.bind(this);
+		  this.OnNameChange = this.OnNameChange.bind(this);
+		  this.OnPhoneChange = this.OnPhoneChange.bind(this);
+		}
+
+		OnEmailChange = (event) => {
+			this.setState({email: event.target.value})
+		}
+
+		OnPasswordChange = (event) => {
+			this.setState({password: event.target.value})
+		}
+		OnNameChange = (event) => {
+			this.setState({name: event.target.value})
+		}
+
+		OnPhoneChange = (event) => {
+			this.setState({phone: event.target.value})
+		}
+
+	
+	render() {
 	 return (
 	  	<>
 		<main className="pa6 black-80">
@@ -15,7 +44,7 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
         				type="email" 
         				name="email-address"  
         				id="email-address"
-        				onChange={handleChangeEmail}
+        				onChange={this.OnEmailChange}
         				/> 
 
       			</div>
@@ -25,7 +54,7 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
         				type="password" 
         				name="password" 
         				id="current-password"
-        				onChange={handleChangePassword}
+        				onChange={this.OnPasswordChange}
         				/>
       			</div>
       			<div className="mv3">
@@ -34,7 +63,7 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
         				type="name" 
         				name="name" 
         				id="current-name"
-        				onChange={handleChangeName}
+        				onChange={this.OnNameChange}
         				/>
       			</div>
 
@@ -44,7 +73,7 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
         				type="phone" 
         				name="phone" 
         				id="current-phone"
-        				onChange={handleChangePhone}
+        				onChange={this.OnPhoneChange}
         				/>
       			</div>
 
@@ -52,13 +81,13 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
     				</fieldset>
    					<div className="">
       					<input
-      					onClick={() => navigate('/navigation')} 
+      					
       					className="b ph3 pv2 input-reset ba b--black bg-transparent grow pointer f6 dib" 
       					type="submit" 
       					value="Register"/>
     				</div>
     				<div className="lh-copy mt3">
-      					<p onClick={() => navigate('/')}
+      					<p
       					className="f6 link dim black db">
       					Login 
       					</p>
@@ -68,6 +97,7 @@ const Register = ({handleChangeEmail, handleChangePassword, handleChangePhone, h
 	    </>
 	  );
 	}
+}
 
 
 export default Register;
