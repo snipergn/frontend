@@ -2,11 +2,12 @@ import './App.css';
 import SignIn from './Components/Signin/signin.js'
 import Register from './Components/Register/register.js'
 import Navigation from './Components/Navigation/navigation.js'
+import Dashboard from './Components/Dashboard/dashboard.js'
+
 import React from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
 class App extends React.Component {
-  
   render() {
   return (
     <div className="App"> 
@@ -14,7 +15,12 @@ class App extends React.Component {
           <Routes>
             <Route exact path="/" element={<SignIn/>}/>
             <Route exact path="/register" element={<Register/>}/>
-            <Route exact path="/navigation" element={<Navigation/>}/>
+            <Route exact path="/dashboard" element={
+              <div>
+              <Navigation/>
+              <Dashboard/>
+              </div>
+            }/>
         </Routes>
       </BrowserRouter>
     </div>
