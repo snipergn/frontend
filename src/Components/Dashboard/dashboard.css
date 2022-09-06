@@ -5,3 +5,13 @@
   width: 97vw;
   height: 50vw;
 }
+
+.title {
+  font-size: 20px;
+}
+.button {
+  align-items: center;
+  width: 100%;
+  padding: -20px;
+  height: 25px;
+}
