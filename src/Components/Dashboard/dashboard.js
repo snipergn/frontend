@@ -10,7 +10,6 @@ useEffect(() => {
     .then(response => response.json())
     .then(spot => {setUserMap(spot);
   })
-    //  setPostArray([{name: 'a'}, {name: 'b'},{name: 'c'}])
 }, [])
 
 
@@ -24,14 +23,15 @@ useEffect(() => {
 		  userMap.map((spot) => {
 		  	return (
 		  		 <Marker position={[spot.lat, spot.long]}>  		
-           		 <Tooltip><b>{spot.name}</b></Tooltip>
-           		 <Popup>
-				      	<h1 className="title">Wind Propability</h1>  
-				      	<p>LATITUDINE:</p>   
-				      	<p>LONGITUDE:</p>      
-				      	<p>WHEN TO GO:</p>
-
-				      <button className="button"> Add to favorite</button>
+           		 <Tooltip c><b>{spot.name}</b></Tooltip>
+           		 <Popup className="popup">
+				      	<h1 className="title">{spot.name}</h1> 
+				      	<p className="country">{spot.country}</p>
+				      	<hr/>
+					      	<p><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
+					      	<p><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
+					      	<p><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
+				      <div className="button">ADD TO FAVORITE</div>
 				    </Popup>
          		 </Marker>		      
 				)

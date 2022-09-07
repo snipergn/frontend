@@ -6,12 +6,28 @@
   height: 50vw;
 }
 
+.country, hr {
+  position: relative;
+  bottom: 15px;
+}
 .title {
   font-size: 20px;
 }
 .button {
-  align-items: center;
-  width: 100%;
-  padding: -20px;
-  height: 25px;
+  background-color: #fcba03;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  right: 21px;
+  top: 15px;
+  width: 247px;
+  border-radius: 0px 0px 13px 13px;
+  font-weight: 600;
+  font-size: 14px;
 }
+
+.popup {
+  width: 247px;
+}
+
