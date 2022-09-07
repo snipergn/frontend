@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
+	const buttonUser = document.getElementsByClassName('button');
+
 
 useEffect(() => {
     fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -23,15 +25,16 @@ useEffect(() => {
 		  userMap.map((spot) => {
 		  	return (
 		  		 <Marker position={[spot.lat, spot.long]}>  		
-           		 <Tooltip c><b>{spot.name}</b></Tooltip>
+           		 <Tooltip><b>{spot.name}</b></Tooltip>
            		 <Popup className="popup">
 				      	<h1 className="title">{spot.name}</h1> 
 				      	<p className="country">{spot.country}</p>
 				      	<hr/>
-					      	<p><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
-					      	<p><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
-					      	<p><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-				      <div className="button">ADD TO FAVORITE</div>
+					      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
+					      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
+					      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
+				      <div
+				      className="button">ADD TO FAVORITE</div>
 				    </Popup>
          		 </Marker>		      
 				)

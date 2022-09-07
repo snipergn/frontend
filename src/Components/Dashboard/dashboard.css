@@ -3,12 +3,21 @@
   margin-left: 20px;
   margin-right: 20px;
   width: 97vw;
-  height: 50vw;
+  height: 40vw;
 }
-
-.country, hr {
+hr {
   position: relative;
   bottom: 15px;
+  margin: 0;
+}
+
+.para {
+  position: relative;
+  top: -15px ;
+}
+.country {
+  position: relative;
+  bottom: 12px;
 }
 .title {
   font-size: 20px;
