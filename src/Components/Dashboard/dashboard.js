@@ -1,11 +1,22 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import './dashboard.css';
 import React, { useState, useEffect } from 'react';
+import IconMinus from '../Assets/minus-icon.svg';
+import Star from '../Assets/star-on.png';
+
 
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
-	const buttonUser = document.getElementsByClassName('button');
+	const [isOpen, setOpen] = React.useState(false);
 
+	const handleOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+	const unique = [...new Set(userMap.map(item => item.id))]; // [ 'A', 'B'];
 
 useEffect(() => {
     fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -13,7 +24,6 @@ useEffect(() => {
     .then(spot => {setUserMap(spot);
   })
 }, [])
-
 
 	 return (
 	  	<MapContainer center={[51.505, -0.09]} zoom={4} scrollWheelZoom={false}>
@@ -24,8 +34,8 @@ useEffect(() => {
 		  {
 		  userMap.map((spot) => {
 		  	return (
-		  		 <Marker position={[spot.lat, spot.long]}>  		
-           		 <Tooltip><b>{spot.name}</b></Tooltip>
+		  		 <Marker position={[spot.lat, spot.long]}>			  		
+           		 <Tooltip><b>{spot.name} </b></Tooltip>
            		 <Popup className="popup">
 				      	<h1 className="title">{spot.name}</h1> 
 				      	<p className="country">{spot.country}</p>
@@ -33,8 +43,11 @@ useEffect(() => {
 					      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
 					      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
 					      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-				      <div
-				      className="button">ADD TO FAVORITE</div>
+						
+						{ isOpen && (spot.id === unique)
+				 	? <div  onClick={handleClose} className="buttonclose">REMOVE FROM FAVORITE</div>				 	
+					: <div  onClick={handleOpen} className="button">ADD TO FAVORITE</div >
+				     	}
 				    </Popup>
          		 </Marker>		      
 				)
@@ -42,7 +55,7 @@ useEffect(() => {
 		}
 		</MapContainer>
 	  );
-	}
 
+	}
 
 export default Dashboard;

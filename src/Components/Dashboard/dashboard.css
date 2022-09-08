@@ -24,6 +24,7 @@ hr {
 }
 .button {
   background-color: #fcba03;
+  color:  white;
   padding: 10px;
   text-align: center;
   margin: 0 auto;
@@ -36,7 +37,23 @@ hr {
   font-size: 14px;
 }
 
+
 .popup {
   width: 247px;
+}
+
+.buttonclose{
+  background-color: red;
+  color:  white;
+  padding: 10px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  right: 21px;
+  top: 15px;
+  width: 247px;
+  border-radius: 0px 0px 13px 13px;
+  font-weight: 600;
+  font-size: 14px;
 }
 
