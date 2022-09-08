@@ -16,8 +16,14 @@ const Dashboard = () => {
 	const handleClose = () => {
 		setOpen(false);
 	};
-	const unique = [...new Set(userMap.map(item => item.id))]; // [ 'A', 'B'];
-
+	const FilterMap = () => {
+		userMap.forEach((spot) => {
+			if(spot.id) {
+				return true
+			} else 
+				return false
+		})
+	}
 useEffect(() => {
     fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
     .then(response => response.json())
@@ -44,7 +50,7 @@ useEffect(() => {
 					      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
 					      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
 						
-						{ isOpen && (spot.id === unique)
+						{ isOpen && FilterMap
 				 	? <div  onClick={handleClose} className="buttonclose">REMOVE FROM FAVORITE</div>				 	
 					: <div  onClick={handleOpen} className="button">ADD TO FAVORITE</div >
 				     	}
