@@ -37,12 +37,15 @@ hr {
   font-size: 14px;
 }
 
+.button:hover {
+  background-color: #D4B700;
+}
 
 .popup {
   width: 247px;
 }
 
-.buttonclose{
+.buttonclose {
   background-color: red;
   color:  white;
   padding: 10px;
@@ -55,5 +58,17 @@ hr {
   border-radius: 0px 0px 13px 13px;
   font-weight: 600;
   font-size: 14px;
+}
+
+.buttonclose:hover {
+  background-color: #d00000;
+}
+
+.marker {
+  background-color: red;
+}
+
+.icon {
+  padding-left: 10px;
 }
 
