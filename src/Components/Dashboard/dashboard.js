@@ -7,18 +7,27 @@ import Star from '../Assets/star-on.png';
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [button, setButton] = React.useState(true);
-	const [seeButton, setSeeButton] = useState('')
+	const [seeButton, setSeeButton] = useState('ADD TO FAVORITE')
 
 
 	const setButtonUp = () => {
-		setButton(false);
-		setSeeButton('REMOVE TO FAVORITE');
-
+			setButton(false);
+			setSeeButton('REMOVE TO FAVORITE');
+		
 	}
 	const setButtonDown = () => {
-		setButton(true);
-		setSeeButton('ADD TO FAVORITE');
-		Object.assign(button, userMap);				
+			setButton(true);
+			setSeeButton('ADD TO FAVORITE');
+			}
+
+	const SetVerify = () => {
+		userMap.forEach((spot) => {
+			if(spot.country.length > 3) {
+				return setButtonUp && setButtonUp 
+			} else {
+				return 'error';
+			}
+		})
 	}
 
 
@@ -43,7 +52,7 @@ useEffect(() => {
 		  		  <Marker key={spot.id} position={[spot.lat, spot.long]}>
            		 <Tooltip><b>{spot.name} </b></Tooltip>       	
 	           		  	 <Popup className="popup" key={spot.id}>
-					        { button
+					        { button && SetVerify
 					        ?  <h1 className="title">{spot.name}</h1>
 					        : <h1 className="title">{spot.name}
 							    <img className="icon" src={Star} width='20px' alt='Star Icon'/>
@@ -54,7 +63,7 @@ useEffect(() => {
 						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
 						      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
 						      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-						      	{ button
+						      	{ button  && SetVerify
 						      	?	<div className="button" onClick={setButtonUp}>
 						      		{seeButton}
 						      		</div>
