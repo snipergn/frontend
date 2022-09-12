@@ -3,7 +3,7 @@
   margin-left: 20px;
   margin-right: 20px;
   width: 97vw;
-  height: 40vw;
+  height: 50vw;
 }
 hr {
   position: relative;
@@ -43,6 +43,8 @@ hr {
 
 .popup {
   width: 247px;
+  padding-bottom: 2px;
+  margin-left: 10px;
 }
 
 .buttonclose {
