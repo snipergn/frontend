@@ -13,27 +13,35 @@ const Dashboard = () => {
 	const setButtonUp = () => {
 			setButton(false);
 			setSeeButton('REMOVE TO FAVORITE');
-		
+			
+			
 	};
 	const setButtonDown = () => {
 			setButton(true);
 			setSeeButton('ADD TO FAVORITE');
 	};
 	
+	const newButton = () => {
+		Object.assign(userMap[1],  {button, seeButton});
+	};
+
+	newButton();
+
+	console.log(userMap)
     //  Create the Icon
-	const LeafIcon = L.Icon.extend({
-		options: {}
-	  });
+	const LeafIcon =L.Icon.extend({
+		option: {}
+	})
 	
 	  const blueIcon = new LeafIcon({
-		  iconUrl:
-			"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
-		}),
+			iconUrl:
+		"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
+	  }),
 		greenIcon = new LeafIcon({
-		  iconUrl:
-			"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
+			iconUrl:
+        "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
 		});
-	
+		
 		//  Use the state hook:
 	  const [icon, setIcon] = useState(blueIcon);
 	
@@ -45,15 +53,18 @@ const Dashboard = () => {
 		} else {
 		  setIcon((current) => (current = greenIcon));
 		}
-	  };
+		};
+		// #1 Create object for every button
 		
-	
-useEffect(() => {
-    fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
-    .then(response => response.json())
-    .then(spot => {setUserMap(spot);
-  })
-}, [])
+		// #2 Display objects in return statement
+
+
+	useEffect(() => {
+		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
+		.then(response => response.json())
+		.then(spot => {setUserMap(spot);
+	})
+	}, [])
 	
 
 	 return (
@@ -85,23 +96,23 @@ useEffect(() => {
 						      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
 						      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
 						      	{ button 
-						      	?	<div className="button" onClick={() => {
-									setButtonUp();
-									changeIconColor(icon);
-									}}>
-						      		{seeButton}
+									?	<div className="button" onClick={() => {
+										
+										setButtonUp();
+										changeIconColor(icon);
+										}}>
+										{spot.seeButton}
 						      		</div>
-						      	:	<div className="buttonclose" onClick={() => {
-									setButtonDown();
-									changeIconColor(icon);
+									:	<div className="buttonclose" onClick={() => {
+										setButtonDown();
+										changeIconColor(icon);
 									}}>
-									{seeButton}
+										{spot.seeButton}
 									</div> }
 
 								</Popup>   
-								</Marker>
-							</div>
-				
+							</Marker>
+						</div>
 				)
 				
 			})
