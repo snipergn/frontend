@@ -20,14 +20,28 @@ const Dashboard = () => {
 			setButton(true);
 			setSeeButton('ADD TO FAVORITE');
 	};
+
+
+	const ButtonChanges = () => {
+		
+		if (button) {
+			return ( <div className="button" onClick={() => {
+				setButtonUp();
+				changeIconColor(icon)
+				}}>
+				{seeButton}
+				</div> ) 
+				
+		} else {
+			return ( <div className="buttonclose" onClick={() => {
+				setButtonDown();
+				changeIconColor(icon);
+			}}> {seeButton} 
+			</div> )
+		}
 	
-	const newButton = () => {
-		Object.assign(userMap[1],  {button, seeButton});
-	};
-
-	newButton();
-
-	console.log(userMap)
+	}
+	
     //  Create the Icon
 	const LeafIcon =L.Icon.extend({
 		option: {}
@@ -41,6 +55,7 @@ const Dashboard = () => {
 			iconUrl:
         "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
 		});
+	
 		
 		//  Use the state hook:
 	  const [icon, setIcon] = useState(blueIcon);
@@ -54,10 +69,6 @@ const Dashboard = () => {
 		  setIcon((current) => (current = greenIcon));
 		}
 		};
-		// #1 Create object for every button
-		
-		// #2 Display objects in return statement
-
 
 	useEffect(() => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -74,50 +85,39 @@ const Dashboard = () => {
 		    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
 		  />
 		  {
-		  userMap.map((spot) => {
-		  	return (	  		
+		  userMap.map(spot => {
+		  	return ( 	  		
 		  		<div>
 					<Marker className="marker"
-					key={spot.id}
 					position={[spot.lat, spot.long]}
 					icon={icon}
 					>
            		 	<Tooltip><b>{spot.name} </b></Tooltip>
-	           		  	 <Popup className="popup" key={spot.id}>
-					        { button 
-					        ?  <h1 className="title">{spot.name}</h1>
-					        : <h1 className="title">{spot.name}
-							    <img className="icon" src={Star} width='20px' alt='Star Icon'/>
-				        	  </h1>
+	           		  	 <Popup className="popup" >
+					        { button  
+								? <h1 className="title" >{spot.name}</h1>
+								: <h1 className="title"  >{spot.name}
+									<img className="icon" src={Star} width='20px' alt='Star Icon'/>
+								</h1>
 				        	} 
-					     	<p className="country">{spot.country}</p>
+					     	<p className="country" >{spot.country}</p>
 					      	<hr/>
 						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
-						      	<p className="para"><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
-						      	<p className="para"><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-						      	{ button 
-									?	<div className="button" onClick={() => {
-										
-										setButtonUp();
-										changeIconColor(icon);
-										}}>
-										{spot.seeButton}
-						      		</div>
-									:	<div className="buttonclose" onClick={() => {
-										setButtonDown();
-										changeIconColor(icon);
-									}}>
-										{spot.seeButton}
-									</div> }
+						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
+						      	<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
+						      	<ButtonChanges> </ButtonChanges>
 
 								</Popup>   
 							</Marker>
 						</div>
 				)
+			
 				
 			})
 		}
 		</MapContainer>
+
+
 	  );
 
 	}
