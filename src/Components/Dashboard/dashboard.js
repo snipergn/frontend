@@ -7,63 +7,41 @@ import L, { marker } from 'leaflet';
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [button, setButton] = React.useState(true);
-	const [seeButton, setSeeButton] = useState('ADD TO FAVORITE');
+	const [nameButton, setnameButton] = useState('ADD TO FAVORITE')
 
-	
-	
-
-	const setButtonUp = () => {
-			setButton(false);
-			setSeeButton('REMOVE TO FAVORITE');
+	const setButtonUp = (event) => {
+		if(button) {
+			setButton(false)
+			setnameButton('REMOVE FROM FAVORITE')
+			changeIconColor(icon)
 			
-			
-	};
-	const setButtonDown = () => {
-			setButton(true);
-			setSeeButton('ADD TO FAVORITE');
-	};
-	
-	const ButtonChanges = () => {
-		if (button) {
-			return ( 
-				<div className="button" onClick={() => {
-					setButtonUp();
-					changeIconColor(icon)
-				}}>
-				{seeButton}
-				</div> 
-				)
-
-				
 		} else {
-			return ( 
-			<div className="buttonclose" onClick={() => {
-				setButtonDown();
-				changeIconColor(icon);
-			}}> {seeButton} 
-			</div> )
+			
+			setButton(true);
+			setnameButton('ADD TO FAVORITE')
+			changeIconColor(icon)
 		}
-	}
 	
-    //  Create the Icon
-	const LeafIcon =L.Icon.extend({
-		option: {}
-	})
+	};
+
+
+	   //  Create the Icon
+	   const LeafIcon = L.Icon.extend({
+		options: {}
+	  });
 	
 	  const blueIcon = new LeafIcon({
-			iconUrl:
-		"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
-	  }),
+		  iconUrl:
+			"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|abcdef&chf=a,s,ee00FFFF"
+		}),
 		greenIcon = new LeafIcon({
-			iconUrl:
-        "https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
+		  iconUrl:
+			"https://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|2ecc71&chf=a,s,ee00FFFF"
 		});
 	
-		
 		//  Use the state hook:
 	  const [icon, setIcon] = useState(blueIcon);
-	  const Assign = Object.assign(userMap, {button, icon, seeButton})
-	  console.log(Assign)
+	
 		// This function will change the state's icon:
 	
 	  const changeIconColor = (icon) => {
@@ -72,7 +50,7 @@ const Dashboard = () => {
 		} else {
 		  setIcon((current) => (current = greenIcon));
 		}
-		};
+	}
 
 	useEffect(() => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -94,8 +72,8 @@ const Dashboard = () => {
 		  	return ( 	  		
 					<Marker className="marker"
 					position={[spot.lat, spot.long]}
-					key={marker.id}
-					id={marker.id}
+					key={spot.id}
+					id={spot.id}
 					icon={icon}
 					>
            		 	<Tooltip><b>{spot.name} {spot.id}</b></Tooltip>
@@ -112,11 +90,7 @@ const Dashboard = () => {
 						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
 						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 						      	<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-								{ spot.id === marker.id
-								? <ButtonChanges/>
-								: console.log('error')
-								}
-								<ButtonChanges/>
+								<div onClick={() => setButtonUp()} className='button'>{nameButton}</div>
 								</Popup>   
 							</Marker>
 				)
