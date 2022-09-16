@@ -2,13 +2,15 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import './dashboard.css';
 import React, { useState, useEffect } from 'react';
 import Star from '../Assets/star-on.png';
-import L from 'leaflet';
+import L, { marker } from 'leaflet';
 
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [button, setButton] = React.useState(true);
 	const [seeButton, setSeeButton] = useState('ADD TO FAVORITE');
 
+	
+	
 
 	const setButtonUp = () => {
 			setButton(false);
@@ -20,26 +22,27 @@ const Dashboard = () => {
 			setButton(true);
 			setSeeButton('ADD TO FAVORITE');
 	};
-
-
+	
 	const ButtonChanges = () => {
-		
 		if (button) {
-			return ( <div className="button" onClick={() => {
-				setButtonUp();
-				changeIconColor(icon)
+			return ( 
+				<div className="button" onClick={() => {
+					setButtonUp();
+					changeIconColor(icon)
 				}}>
 				{seeButton}
-				</div> ) 
+				</div> 
+				)
+
 				
 		} else {
-			return ( <div className="buttonclose" onClick={() => {
+			return ( 
+			<div className="buttonclose" onClick={() => {
 				setButtonDown();
 				changeIconColor(icon);
 			}}> {seeButton} 
 			</div> )
 		}
-	
 	}
 	
     //  Create the Icon
@@ -59,7 +62,8 @@ const Dashboard = () => {
 		
 		//  Use the state hook:
 	  const [icon, setIcon] = useState(blueIcon);
-	
+	  const Assign = Object.assign(userMap, {button, icon, seeButton})
+	  console.log(Assign)
 		// This function will change the state's icon:
 	
 	  const changeIconColor = (icon) => {
@@ -74,6 +78,7 @@ const Dashboard = () => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
 		.then(response => response.json())
 		.then(spot => {setUserMap(spot);
+	
 	})
 	}, [])
 	
@@ -87,14 +92,15 @@ const Dashboard = () => {
 		  {
 		  userMap.map(spot => {
 		  	return ( 	  		
-		  		<div>
 					<Marker className="marker"
 					position={[spot.lat, spot.long]}
+					key={marker.id}
+					id={marker.id}
 					icon={icon}
 					>
-           		 	<Tooltip><b>{spot.name} </b></Tooltip>
-	           		  	 <Popup className="popup" >
-					        { button  
+           		 	<Tooltip><b>{spot.name} {spot.id}</b></Tooltip>
+	           		  	 <Popup className="popup" key={spot.id} >
+					        { button   
 								? <h1 className="title" >{spot.name}</h1>
 								: <h1 className="title"  >{spot.name}
 									<img className="icon" src={Star} width='20px' alt='Star Icon'/>
@@ -102,14 +108,17 @@ const Dashboard = () => {
 				        	} 
 					     	<p className="country" >{spot.country}</p>
 					      	<hr/>
-						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>   
-						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>      
+								
+						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
+						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 						      	<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-						      	<ButtonChanges> </ButtonChanges>
-
+								{ spot.id === marker.id
+								? <ButtonChanges/>
+								: console.log('error')
+								}
+								<ButtonChanges/>
 								</Popup>   
 							</Marker>
-						</div>
 				)
 			
 				
