@@ -1,22 +1,24 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import './dashboard.css';
-import React, { useState, useEffect } from 'react';
+import React, {useMemo, useState, useEffect } from 'react';
 import Star from '../Assets/star-on.png';
-import L, { marker } from 'leaflet';
+import L from 'leaflet';
+import Table from "./Table";
 
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [button, setButton] = React.useState(true);
 	const [nameButton, setnameButton] = useState('ADD TO FAVORITE')
+	const [isActive, setIsActive] = useState(false);
 
-	const setButtonUp = (event) => {
+
+	const setButtonUp = () => {
 		if(button) {
 			setButton(false)
 			setnameButton('REMOVE FROM FAVORITE')
 			changeIconColor(icon)
 			
 		} else {
-			
 			setButton(true);
 			setnameButton('ADD TO FAVORITE')
 			changeIconColor(icon)
@@ -24,7 +26,10 @@ const Dashboard = () => {
 	
 	};
 
-
+	const handleClick = event => {
+		setIsActive(current => !current);
+	  };
+	
 	   //  Create the Icon
 	   const LeafIcon = L.Icon.extend({
 		options: {}
@@ -52,6 +57,7 @@ const Dashboard = () => {
 		}
 	}
 
+
 	useEffect(() => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
 		.then(response => response.json())
@@ -60,8 +66,52 @@ const Dashboard = () => {
 	})
 	}, [])
 	
+	const columns = useMemo(
+		() => [
+		  {
+			// first group - TV Show
+			Header: "TV Show",
+			// First group columns
+			columns: [
+			  {
+				Header: "Name",
+				accessor: "show.name"
+			  },
+			  {
+				Header: "Type",
+				accessor: "show.type"
+			  }
+			]
+		  },
+		  {
+			// Second group - Details
+			Header: "Details",
+			// Second group columns
+			columns: [
+			  {
+				Header: "Language",
+				accessor: "show.language"
+			  },
+			  {
+				Header: "Genre(s)",
+				accessor: "show.genres"
+			  },
+			  {
+				Header: "Runtime",
+				accessor: "show.runtime"
+			  },
+			  {
+				Header: "Status",
+				accessor: "show.status"
+			  }
+			]
+		  }
+		],
+		[]
+	  );
 
-	 return (
+	 return( 
+		<div>
 	  	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
 		  <TileLayer
 		    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -90,19 +140,32 @@ const Dashboard = () => {
 						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
 						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 						      	<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-								<div onClick={() => setButtonUp()} className='button'>{nameButton}</div>
-								</Popup>   
-							</Marker>
+								<div onClick={ () => {
+								handleClick()
+								setButtonUp()
+									}
+								}
+						
+								className={isActive ? 'buttonclose' : 'button'}>
+								{nameButton}
+								
+								</div>
+							</Popup>   
+						</Marker>
 				)
 			
-				
 			})
+			
 		}
+		
 		</MapContainer>
+		<Table columns={columns} data={userMap}></Table>
+			</div>
 
+			
 
-	  );
-
+	  )
+	  
 	}
 
 export default Dashboard;
