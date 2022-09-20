@@ -77,3 +77,6 @@ hr {
   padding-left: 10px;
 }
 
+.table {
+  min-width: 500px;
+}

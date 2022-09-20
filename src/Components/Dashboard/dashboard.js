@@ -1,15 +1,17 @@
 import { MapContainer, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import './dashboard.css';
-import React, {useMemo, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import Star from '../Assets/star-on.png';
 import L from 'leaflet';
-import Table from "./Table";
+import BasicTable from './Table';
+
 
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [button, setButton] = React.useState(true);
 	const [nameButton, setnameButton] = useState('ADD TO FAVORITE')
 	const [isActive, setIsActive] = useState(false);
+	const filter = userMap.filter(spot => spot.name.length> 4)
 
 
 	const setButtonUp = () => {
@@ -65,107 +67,52 @@ const Dashboard = () => {
 	
 	})
 	}, [])
-	
-	const columns = useMemo(
-		() => [
-		  {
-			// first group - TV Show
-			Header: "TV Show",
-			// First group columns
-			columns: [
-			  {
-				Header: "Name",
-				accessor: "show.name"
-			  },
-			  {
-				Header: "Type",
-				accessor: "show.type"
-			  }
-			]
-		  },
-		  {
-			// Second group - Details
-			Header: "Details",
-			// Second group columns
-			columns: [
-			  {
-				Header: "Language",
-				accessor: "show.language"
-			  },
-			  {
-				Header: "Genre(s)",
-				accessor: "show.genres"
-			  },
-			  {
-				Header: "Runtime",
-				accessor: "show.runtime"
-			  },
-			  {
-				Header: "Status",
-				accessor: "show.status"
-			  }
-			]
-		  }
-		],
-		[]
-	  );
 
 	 return( 
-		<div>
-	  	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
-		  <TileLayer
-		    attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-		    url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-		  />
-		  {
-		  userMap.map(spot => {
-		  	return ( 	  		
-					<Marker className="marker"
-					position={[spot.lat, spot.long]}
-					key={spot.id}
-					id={spot.id}
-					icon={icon}
-					>
-           		 	<Tooltip><b>{spot.name} {spot.id}</b></Tooltip>
-	           		  	 <Popup className="popup" key={spot.id} >
-					        { button   
-								? <h1 className="title" >{spot.name}</h1>
-								: <h1 className="title"  >{spot.name}
-									<img className="icon" src={Star} width='20px' alt='Star Icon'/>
-								</h1>
-				        	} 
-					     	<p className="country" >{spot.country}</p>
-					      	<hr/>
-								
-						      	<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
-						      	<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
-						      	<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-								<div onClick={ () => {
-								handleClick()
-								setButtonUp()
-									}
-								}
-						
-								className={isActive ? 'buttonclose' : 'button'}>
-								{nameButton}
-								
-								</div>
-							</Popup>   
-						</Marker>
-				)
-			
-			})
-			
-		}
 		
+	<div>
+	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
+		<TileLayer
+		attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+		url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+		/>
+		{ filter.map(spot => {
+		return (
+		<Marker className="marker"
+				position={[spot.lat, spot.long]}
+				key={spot.id}
+				id={spot.id}
+				icon={icon}
+				>
+			<Tooltip><b>{spot.name} {spot.id}</b></Tooltip>
+				<Popup className="popup" key={spot.id} >
+				{ button   
+					? <h1 className="title" >{spot.name}</h1>
+					: <h1 className="title"  >{spot.name}
+						<img className="icon" src={Star} width='20px' alt='Star Icon'/>
+					</h1>
+				} 
+				<p className="country" >{spot.country}</p>
+				<hr/>
+					
+					<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
+					<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
+					<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
+					<div onClick={ () => {
+					handleClick()
+					setButtonUp()}}
+					className={isActive ? 'buttonclose' : 'button'}>
+					{nameButton}
+					</div>
+				</Popup>   
+			</Marker>
+				)
+			})	      
+		}			
 		</MapContainer>
-		<Table columns={columns} data={userMap}></Table>
-			</div>
-
-			
-
-	  )
-	  
+		<BasicTable/>
+		</div>
+	  	)
 	}
 
 export default Dashboard;
