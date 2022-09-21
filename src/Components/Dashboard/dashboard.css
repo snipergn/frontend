@@ -3,7 +3,7 @@
   margin-left: 20px;
   margin-right: 20px;
   width: 97vw;
-  height: 25vw;
+  height: 50vw;
 }
 hr {
   position: relative;
@@ -77,6 +77,3 @@ hr {
   padding-left: 10px;
 }
 
-.table {
-  min-width: 500px;
-}

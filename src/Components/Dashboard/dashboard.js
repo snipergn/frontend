@@ -11,7 +11,7 @@ const Dashboard = () => {
 	const [button, setButton] = React.useState(true);
 	const [nameButton, setnameButton] = useState('ADD TO FAVORITE')
 	const [isActive, setIsActive] = useState(false);
-	const filter = userMap.filter(spot => spot.name.length> 4)
+	const filter = userMap.filter(spot => spot.name.length > 4)
 
 
 	const setButtonUp = () => {
@@ -64,12 +64,9 @@ const Dashboard = () => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
 		.then(response => response.json())
 		.then(spot => {setUserMap(spot);
-	
-	})
+		})
 	}, [])
-
-	 return( 
-		
+	 return ( 	
 	<div>
 	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
 		<TileLayer
