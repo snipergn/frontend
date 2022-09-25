@@ -15,7 +15,7 @@ const Navigation = () => {
 			<div className="dropdown">
 			  <button className=" link dim dark-gray f6 f5-l dib dropbtn">Profile</button>
 			  <div className="dropdown-content">
-			    <p className="button underline tj" href="#"
+			    <p className="buttonup underline tj" href="#"
 			    onClick={() => navigate("/")}
 			    >	Logout
 			    </p>	    

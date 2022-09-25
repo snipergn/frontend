@@ -2,7 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip} from 'react-leaflet';
 import './dashboard.css';
 import React, { useState, useEffect } from 'react';
 import Star from '../Assets/star-on.png';
-import L from 'leaflet';
+import L, { map } from 'leaflet';
 import BasicTable from './Table';
 
 
@@ -15,15 +15,15 @@ const Dashboard = () => {
 
 
 	const setButtonUp = () => {
+
 		if(button) {
 			setButton(false)
 			setnameButton('REMOVE FROM FAVORITE')
-			changeIconColor(icon)
-			
+			handleClick()
 		} else {
 			setButton(true);
 			setnameButton('ADD TO FAVORITE')
-			changeIconColor(icon)
+			handleClick()
 		}
 	
 	};
@@ -59,6 +59,27 @@ const Dashboard = () => {
 		}
 	}
 
+		// A popup when is clicked the button 'Add to favorite' -> change button, star, marker color 
+		//  popup when is clicked the button 'Remove from favorite' -> Change button, star, marker color to default.
+
+		//#1 Add a button, a star icon and marker color only for Popup with id, lat, long
+		const ChangePopup = () => {	
+				const spot = filter.map(spot);
+				const map = L.map('map').setView([16.233131, -61.572646], 10);
+				const marker = L.marker([spot.lat, spot.long]).addTo(map);
+				marker.bindPopup(
+					<div 
+					onClick={ () => {
+					setButtonUp()}}
+					className={isActive ? 'buttonclose' : 'button'}>
+					{nameButton}
+					</div>)
+			
+			
+		}
+		//#2 When you click the button change state for button, marker and star.
+
+
 
 	useEffect(() => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -66,6 +87,8 @@ const Dashboard = () => {
 		.then(spot => {setUserMap(spot);
 		})
 	}, [])
+
+ 
 	 return ( 	
 	<div>
 	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
@@ -78,10 +101,10 @@ const Dashboard = () => {
 		<Marker className="marker"
 				position={[spot.lat, spot.long]}
 				key={spot.id}
-				id={spot.id}
 				icon={icon}
+				
 				>
-			<Tooltip><b>{spot.name} {spot.id}</b></Tooltip>
+			<Tooltip><b>{spot.name}</b></Tooltip>
 				<Popup className="popup" key={spot.id} >
 				{ button   
 					? <h1 className="title" >{spot.name}</h1>
@@ -95,12 +118,7 @@ const Dashboard = () => {
 					<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
 					<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 					<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-					<div onClick={ () => {
-					handleClick()
-					setButtonUp()}}
-					className={isActive ? 'buttonclose' : 'button'}>
-					{nameButton}
-					</div>
+					<ChangePopup/>
 				</Popup>   
 			</Marker>
 				)

@@ -10,7 +10,6 @@ const Register = () => {
 	const navigate = useNavigate()
 
 
-
 	 return (
 	  	<>
 		<main className="pa6 black-80">

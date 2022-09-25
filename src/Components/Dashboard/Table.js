@@ -55,7 +55,6 @@ export default function BasicTable() {
 
     return (
         <TableContainer component={Paper}>
-
 			<Table aria-label="simple table" className={classes.table}> 
 				<TableHead>
 				<TableRow>
