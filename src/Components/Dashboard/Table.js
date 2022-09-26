@@ -24,7 +24,6 @@ export default function BasicTable() {
 
 
 
-
     useEffect(() => {
 		fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
 		.then(response => response.json())
@@ -47,6 +46,8 @@ export default function BasicTable() {
 			);
 		}
 	  };
+
+	  
 	
 	  const handleSortRequest = () => {
 		setRowData(sortArray(filter, orderDirection));

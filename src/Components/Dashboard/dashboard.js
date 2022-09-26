@@ -62,21 +62,32 @@ const Dashboard = () => {
 		// A popup when is clicked the button 'Add to favorite' -> change button, star, marker color 
 		//  popup when is clicked the button 'Remove from favorite' -> Change button, star, marker color to default.
 
-		//#1 Add a button, a star icon and marker color only for Popup with id, lat, long
-		const ChangePopup = () => {	
-				const spot = filter.map(spot);
-				const map = L.map('map').setView([16.233131, -61.572646], 10);
-				const marker = L.marker([spot.lat, spot.long]).addTo(map);
-				marker.bindPopup(
-					<div 
-					onClick={ () => {
-					setButtonUp()}}
-					className={isActive ? 'buttonclose' : 'button'}>
-					{nameButton}
-					</div>)
-			
-			
+		//#1 Add a button, a star icon and marker color only for Popup with id, lat, long		
+
+		const AddtoFavorite = () => {
+			<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
+			var map = L.map('map', {
+				center: [51.505, -0.09],
+				zoom: 13
+			});
+
+			let places = 
+			<div 
+				onClick={ () => {
+				setButtonUp()}}
+				className={isActive ? 'buttonclose' : 'button'}>
+				{nameButton}
+				</div>
+			userMap.map((spot) => {
+				let popup = L.popup(places)
+             .setLatLng(spot.la, spot.long)
+             .setContent('<div>Hello world!<br />This is a nice popup.</div>')
+             .openOn(map);
+
+			})
+			</MapContainer>
 		}
+		let storageFav = AddtoFavorite()
 		//#2 When you click the button change state for button, marker and star.
 
 
@@ -118,7 +129,7 @@ const Dashboard = () => {
 					<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
 					<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 					<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-					<ChangePopup/>
+					{storageFav}
 				</Popup>   
 			</Marker>
 				)
