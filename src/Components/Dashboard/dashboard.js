@@ -10,8 +10,8 @@ const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [isActive, setIsActive] = useState(false);
 	const filter = userMap.filter(spot => spot.name.length > 4)
-	const [button, setButton] = useState(false)
-	const [nameButton, setnameButton] = useState('ADD TO Favorite')
+	const [button, setButton] = useState(true)
+	const [nameButton, setnameButton] = useState('ADD TO FAVORITE')
 
 	const setButtonUp = () => {
 		if(button) {
@@ -95,6 +95,7 @@ const Dashboard = () => {
 						? <div onClick={() => {
 							handleClick()
 							setButtonUp()
+							changeIconColor(icon)
 						}}
 						className={isActive ? 'buttonclose' : 'button'}>{nameButton}
 						</div>
