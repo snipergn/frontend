@@ -10,7 +10,8 @@ const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [isActive, setIsActive] = useState(false);
 	const filter = userMap.filter(spot => spot.name.length > 4)
-
+	const [button, setButton] = useState(false)
+	const [nameButton, setnameButton] = useState('ADD TO Favorite')
 
 	const setButtonUp = () => {
 		if(button) {
