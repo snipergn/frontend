@@ -6,6 +6,8 @@ import L from 'leaflet';
 import BasicTable from './Table';
 
 
+
+
 const Dashboard = () => {
 	const [userMap, setUserMap] = useState([]);
 	const [isActive, setIsActive] = useState(false);
@@ -63,7 +65,7 @@ const Dashboard = () => {
 		})
 	}, [])
 
- 
+	
 	 return ( 	
 	<div>
 	<MapContainer center={[51.505, -0.09]}  zoom={4} scrollWheelZoom={false}>
@@ -79,7 +81,19 @@ const Dashboard = () => {
 				icon={icon}
 				>
 			<Tooltip><b>{spot.name}</b></Tooltip>
-				<Popup className="popup" key={i} >
+				<Popup className="popup" key={i} 
+				eventHandlers={{
+				onEachFeature: () => {
+					<div onClick={() => {
+					handleClick()
+					setButtonUp()
+					changeIconColor(icon)
+						}}
+					className={isActive ? 'buttonclose' : 'button'}>{nameButton}
+					</div>
+					
+					},
+				}}>
 				{ button
 					? <h1 className="title" >{spot.name}</h1>
 					: <h1 className="title"  >{spot.name}
@@ -91,21 +105,22 @@ const Dashboard = () => {
 					<p className="para"><strong>LATITUDINE:</strong> <br/>{spot.lat}</p>  
 					<p className="para" ><strong>LONGITUDE:</strong> <br/>{spot.long}</p>         
 					<p className="para" ><strong>WHEN TO GO:</strong> <br/>{spot.month}</p>
-					
-						? <div onClick={() => {
-							handleClick()
-							setButtonUp()
-							changeIconColor(icon)
-						}}
-						className={isActive ? 'buttonclose' : 'button'}>{nameButton}
-						</div>
-					: console.log('error')
+						<div onClick={() => {
+						handleClick()
+						setButtonUp()
+						changeIconColor(icon)
+					}}
 
+					className={isActive ? 'buttonclose' : 'button'}>{nameButton}
+					</div>
 				</Popup>   
 			</Marker>
+		
+			
 				)
 			})	      
 		}			
+		
 		</MapContainer>
 		<BasicTable/>
 		</div>
