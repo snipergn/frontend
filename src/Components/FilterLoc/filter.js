@@ -13,7 +13,7 @@ const Filter = () => {
 	 return (
     <>
 		<div class="ph3 mt">
-            <a class="f6 link dim br1 ba ph3 pv2 mb2 dib black" href="#0" onClick={handleClick}>
+            <a class="f6 link dim br1 ba ba12 ph3 pv2 mb2 dib black" href="#0" onClick={handleClick}>
             <img src={FilterIcon} alt="Iconfilter" className='filtericon' width='17px'/> 
             FILTERS
             </a>
@@ -22,9 +22,10 @@ const Filter = () => {
         <div class="card">
           <div class="container">
           <p className='text'> Country</p>
-          <input type="search" className='input'/>
+          <input className='inputfilter' type="search"/>
           <p className='text'> Wind probability</p>
-          <input type="search" className='input'/>
+          <input className='inputfilter' type="search"/> <br/>
+          <button className='applyfilter'> Apply FILTER</button>
         </div>
       </div> 
       )}

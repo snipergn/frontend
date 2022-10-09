@@ -18,7 +18,7 @@ const SignIn = () => {
 					<main className="pa6 black-80">
 					<div className="measure center" onChange={handleSubmit} >
 				    	<fieldset id="sign_up" className="ba b--transparent ph2 mh0">
-				      	<legend className="f2 fw6 ph0 mh0">Sign In</legend>
+				      	<h1 className="f2 fw6 ph0 mh0">Sign In</h1>
 			  				<div className="mt3">
 			        				<label className="pa1 db fw6 lh-copy f6" htmlFor="email-address">Email</label>
 			        				<input className="pa2 input-reset ba bg-transparent hover-bg-black hover-white w-50" 

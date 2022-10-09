@@ -3,7 +3,7 @@ import './dashboard.css';
 import React, { useState, useEffect } from 'react';
 import Star from '../Assets/star-on.png';
 import L from 'leaflet';
-import BasicTable from './Table';
+import BasicTable from '../Table/Table';
 
 
 

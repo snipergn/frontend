@@ -7,7 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
-import TableSortLabel from "@material-ui/core/TableSortLabel";
+import SortingCountry from './SortingCountry';
 
 	const useStyles = makeStyles({
 		table: {
@@ -17,11 +17,11 @@ import TableSortLabel from "@material-ui/core/TableSortLabel";
 		}
 	});
 	
-export default function BasicTable() {
+const BasicTable = () => {
     const [userMap, setUserMap] = useState([]);
 	const classes = useStyles();
 	const filter = userMap.filter(spot => spot.name.length > 4)
-
+	const { rowData} = SortingCountry()
 
 
     useEffect(() => {
@@ -30,29 +30,6 @@ export default function BasicTable() {
 		.then(spot => {setUserMap(spot);
 	})
 	}, [])
-	const [rowData, setRowData] = useState(filter);
-  	const [orderDirection, setOrderDirection] = useState("asc");
-
-	const sortArray = (arr, orderBy) => {
-		switch (orderBy) {
-		  case "asc":
-		  default:
-			return arr.sort((spot) =>
-			  spot.country > spot.name ? 1 : spot.name > spot.country ? -1 : 0
-			);
-		  case "desc":
-			return arr.sort((spot) =>
-			spot.country < spot.name ? 1 : spot.name < spot.country ? -1 : 0
-			);
-		}
-	  };
-
-	  
-	
-	  const handleSortRequest = () => {
-		setRowData(sortArray(filter, orderDirection));
-		setOrderDirection(orderDirection === "asc" ? "desc" : "asc");
-	  };
 
     return (
         <TableContainer component={Paper}>
@@ -61,18 +38,14 @@ export default function BasicTable() {
 				<TableRow>
 					<TableCell align="center">Nr.crt</TableCell>
 					<TableCell align="center">Name</TableCell>
-					<TableCell align="center" onClick={handleSortRequest}>
-              			<TableSortLabel active={true} direction={orderDirection}>
-						  Country
-              			</TableSortLabel> 
-					</TableCell>
+					<SortingCountry/>
 					<TableCell align="center">Latitude</TableCell>
 					<TableCell align="center">Longitude</TableCell>
 					<TableCell align="center">Wind probability</TableCell>
 					<TableCell align="center">When to Go</TableCell>
 				</TableRow>
 				</TableHead>
-				<TableBody>
+				<TableBody rowData={rowData}>
 				{rowData.map((spot) => (
 					<TableRow key={spot.id}>
 					<TableCell align="center">{spot.id}</TableCell>
@@ -89,4 +62,5 @@ export default function BasicTable() {
 		</TableContainer>
     );
   }
+  export default BasicTable
   
