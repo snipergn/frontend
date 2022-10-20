@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import TableBody from "./TableBody";
 import TableHead from "./TableHead";
 
 const Table = () => {
- const [tableData, setTableData] = useState([]);
+ const [userMap, setUserMap] = useState([]);
 
  const columns = [
   { label: "name", accessor: "name_location" },
@@ -13,6 +13,12 @@ const Table = () => {
   { label: "probability", accessor: "probability" },
   { label: "month", accessor: "month" }
  ];
+useEffect(() => {
+    fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
+    .then(response => response.json())
+    .then(spot => {setUserMap(spot);
+    })
+    }, [])
 
  return (
   <>
@@ -21,7 +27,7 @@ const Table = () => {
      Developers currently enrolled in this course, column headers are sortable.
     </caption>
     <TableHead columns={columns} />
-    <TableBody columns={columns} tableData={tableData} />
+    <TableBody columns={columns} userMap={userMap}/>
    </table>
   </>
  );
