@@ -1,18 +1,23 @@
-import { useState, useEffect } from "react";
-import TableBody from "./TableBody";
-import TableHead from "./TableHead";
+import React, { useState, useEffect } from "react";
+import './Table.css';
 
 const Table = () => {
  const [userMap, setUserMap] = useState([]);
+ const [sortedField, setSortedField] = React.useState(null);
 
- const columns = [
-  { label: "name", accessor: "name_location" },
-  { label: "country", accessor: "country" },
-  { label: "latitude", accessor: "lat" },
-  { label: "longitude", accessor: "long" },
-  { label: "probability", accessor: "probability" },
-  { label: "month", accessor: "month" }
- ];
+ let sortedProducts = [...userMap]
+ if(sortedField !== null) {
+    sortedField.sort((a,b) => {
+        if (a[sortedField] < b[sortedField]) {
+            return -1;
+        }
+        if(a[sortedField] > b[sortedField]) {
+            return 1;
+        }
+      return 0;  
+    })
+ }
+
 useEffect(() => {
     fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
     .then(response => response.json())
@@ -23,12 +28,29 @@ useEffect(() => {
  return (
   <>
    <table className="table">
-    <caption>
-     Developers currently enrolled in this course, column headers are sortable.
-    </caption>
-    <TableHead columns={columns} />
-    <TableBody columns={columns} userMap={userMap}/>
-   </table>
+      <thead>
+        <tr className="container">
+          <th onClick={() => setSortedField('name')}>Name</th>
+          <th onClick={() => setSortedField('country')}>Country</th>
+          <th onClick={() => setSortedField('lan')}>Latitude</th>
+          <th onClick={() => setSortedField('long')}>Longitude</th>
+          <th onClick={() => setSortedField('probability')}>probability</th>
+          <th onClick={() => setSortedField('month')}>Month</th>
+        </tr>
+      </thead>
+      <tbody className="items">
+        {userMap.map(spot => (
+          <tr key={spot.id}>
+            <td>{spot.name}</td>
+            <td>{spot.country}</td>
+            <td>{spot.lat}</td>
+            <td>{spot.long}</td>
+            <td>{spot.probability}</td>
+            <td>{spot.month}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </>
  );
 };
