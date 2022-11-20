@@ -1,22 +1,17 @@
-import React, { useState, useEffect } from "react";
-import './Table.css';
+import { useState, useEffect } from "react";
+import './Table.css'
+import * as React from 'react';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
 
-const Table = () => {
+const BasicTable = () => {
  const [userMap, setUserMap] = useState([]);
- const [sortedField, setSortedField] = React.useState(null);
-
- let sortedProducts = [...userMap]
- if(sortedField !== null) {
-    sortedField.sort((a,b) => {
-        if (a[sortedField] < b[sortedField]) {
-            return -1;
-        }
-        if(a[sortedField] > b[sortedField]) {
-            return 1;
-        }
-      return 0;  
-    })
- }
+ const filter = userMap.filter((spot) => spot.name.length > 4);
 
 useEffect(() => {
     fetch('https://6304d6b494b8c58fd7264985.mockapi.io/spot')
@@ -25,35 +20,43 @@ useEffect(() => {
     })
     }, [])
 
+
+
  return (
   <>
-   <table className="table">
-      <thead>
-        <tr className="container">
-          <th onClick={() => setSortedField('name')}>Name</th>
-          <th onClick={() => setSortedField('country')}>Country</th>
-          <th onClick={() => setSortedField('lan')}>Latitude</th>
-          <th onClick={() => setSortedField('long')}>Longitude</th>
-          <th onClick={() => setSortedField('probability')}>probability</th>
-          <th onClick={() => setSortedField('month')}>Month</th>
-        </tr>
-      </thead>
-      <tbody className="items">
-        {userMap.map(spot => (
-          <tr key={spot.id}>
-            <td>{spot.name}</td>
-            <td>{spot.country}</td>
-            <td>{spot.lat}</td>
-            <td>{spot.long}</td>
-            <td>{spot.probability}</td>
-            <td>{spot.month}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <TableContainer className="tablezone" component={Paper}>
+        <Table sx={{ minWidth: 500 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>name</TableCell>
+              <TableCell align="right">country</TableCell>
+              <TableCell align="right">latitude</TableCell>
+              <TableCell align="right">longitude</TableCell>
+              <TableCell align="right">probability</TableCell>
+              <TableCell align="right">month</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody className="displaydata">
+            {filter.map((spot) => (
+              <TableRow 
+                key={spot.id}
+              >
+                <TableCell component="th" scope="row">
+                  {spot.name}
+                </TableCell>
+                <TableCell align="right">{spot.country}</TableCell>
+                <TableCell align="right">{spot.lat}</TableCell>
+                <TableCell align="right">{spot.long}</TableCell>
+                <TableCell align="right">{spot.probability}</TableCell>
+                <TableCell align="right">{spot.month}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
   </>
  );
 };
 
-export default Table;
+export default BasicTable;
   

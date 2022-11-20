@@ -43,4 +43,8 @@
     background-color: #fcba03;
 }
 
+.locationfilter {
+    position: relative;
+    top: 5px;
+}
 

@@ -12,7 +12,6 @@ const SignIn = () => {
       console.log(`Submitting Email ${email} + password ${password}`)
   }
 
-
 			return (
 		  	<div>
 					<main className="pa6 black-80">

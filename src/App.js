@@ -3,7 +3,6 @@ import SignIn from './Components/Signin/signin.js'
 import Register from './Components/Register/register.js'
 import Navigation from './Components/Navigation/navigation.js'
 import Dashboard from './Components/Dashboard/dashboard.js'
-import Filter from './Components/FilterLoc/filter.js'
 import React from 'react';
 import {BrowserRouter,Routes,Route} from "react-router-dom";
 
@@ -18,7 +17,6 @@ class App extends React.Component {
             <Route exact path="/dashboard" element={
               <div>
               <Navigation/>
-              <Filter/>
               <Dashboard/>
               </div>
             }/>
